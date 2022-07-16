@@ -14,5 +14,5 @@ class RegisterInformViewModel:ViewModel() {
     val address: LiveData<String>
         get() = _address
 
-    fun updateInform(action)
+
 }

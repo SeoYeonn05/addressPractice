@@ -4,7 +4,9 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.media.Image
 import android.os.Bundle
+import android.view.View
 import android.widget.Space
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -32,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.searchaddress.SearchAddressDialog
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +51,11 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+}
+
+fun onDialogBtnClicked(view: View){
+
 }
 
 @Composable
@@ -64,112 +72,13 @@ fun Greeting() {
     })
 }
 
-@Composable
-private fun SearchAddressDialog(
-    dialogState: Boolean,
-    onDissmissRequest: (dialogState:Boolean) -> Unit
-){
-    if(dialogState){
-        AlertDialog(
-            backgroundColor = Color.DarkGray,
-            onDismissRequest = {
-                onDissmissRequest(dialogState)
-            },
-            title = null,
-            text = null,
-            buttons = {
-                      DialogUI()
-
-            },
-            properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false),
-            shape = RoundedCornerShape(9.dp)
-            )
-    }
-}
-
-@Composable
-fun DialogUI(){
-    var userInput = remember { mutableStateOf(TextFieldValue())}
-
-    Column {
-        Spacer(
-            modifier = Modifier
-                .height(12.dp)
-                .fillMaxWidth()
-        )
-        Text(
-            "찾으시려는 동(읍/면/리)과 번지수or건물명을 정확하게 입력해 주세요.",
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentSize()
-                .padding(vertical = 8.dp),
-            fontSize = 16.sp,
-            lineHeight = 17.sp
-        )
-        Spacer(
-            modifier = Modifier
-                .height(12.dp)
-                .fillMaxWidth()
-        )
-        Divider(color = Color.White, thickness = 0.8.dp,
-            modifier = Modifier.padding(horizontal = 16.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-        ){
-            TextField()
-            Button(
-                onClick = {},
-                modifier = Modifier.fillMaxWidth()
-            ){
-                Text("Enter")
-            }
-        }
-    }
-}
-
-// sharedPreference 사용 필요
-@Composable
-fun TextField(){
-    var textState by remember { mutableStateOf(TextFieldValue())}
-    TextField(
-        value = textState,
-        onValueChange = {textValue -> textState = textValue},
-        trailingIcon = {
-            painterResource(id = R.drawable.ic_baseline_search_24)
-        }
-    )
-}
-
-@Composable
-fun KotlinDialog(){
-    Dialog(onDismissRequest = {}){
-        Surface(
-            modifier = Modifier
-                .width(200.dp)
-                .wrapContentHeight(),
-            shape = RoundedCornerShape(12.dp),
-            color = Color.White
-        ) {
-            DialogUI()
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    var dialogState by remember{
-        mutableStateOf(false)}
-    SearchAddressTheme {
-        SearchAddressDialog(dialogState = dialogState, onDissmissRequest = {
-            dialogState = !it
-        })
-    }
+    Greeting()
 }
-
+/*
 //  권한 요청
 private val PERMISSION_CODE = 100
 
@@ -214,4 +123,5 @@ override fun onRequestPermissionsResult(
 // 권한이 없는 경우 실행
 private fun permissionDenied() {
     showToast("위치 권한이 필요합니다")
-}
+
+}*/

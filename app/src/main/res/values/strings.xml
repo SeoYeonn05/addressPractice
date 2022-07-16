@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SearchAddress</string>
+    <string name="title_activity_search_address_dialog">SearchAddressDialog</string>
 </resources>
